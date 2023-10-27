@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+{% block body %} 
+
+  <main id="main" class="main" style="min-height: 80vh;">
+
+    <div class="pagetitle">
+      <h1>Issued Books</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item active">Books</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Issued Books</h5>
+              
+              <!-- Table with stripped rows -->
+              <table class="table datatable">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Contact</th>
+                    <th scope="col">Book</th>
+                    <th scope="col">Date</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for book in books %}
+                  <tr>
+                    <td>{{book.id}}</td>
+                    <td>{{book.name}}</td>
+                    <td>{{book.contact}}</td>
+                    <td>{{book.book}}</td>
+                    <td>{{book.date}}</td>
+                    <td><a href="/return/{{book.id}}"><button class="btn btn-success">Return</button></a></td>
+                    {% endfor %}
+                  </tr>
+                </tbody>
+              </table>
+              <!-- End Table with stripped rows -->
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+  {% endblock %}

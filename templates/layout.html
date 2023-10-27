@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>LMS</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/quill/quill.snow.css')}}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/quill/quill.bubble.css')}}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/remixicon/remixicon.css')}}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/simple-datatables/style.css')}}" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+  <!-- Template Main CSS File -->
+  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+  {{ javascript_code | safe }}
+
+  <style>
+    .datatable-dropdown,.datatable-info, .datatable-input {
+      display: none;
+    }
+    .datatable-container{
+      border-bottom: none;
+    }
+    .datatable-bottom{
+      color:white;
+      border-bottom: white;
+    }
+
+    .btn-secondary{
+      float: right;
+    }
+    
+  </style>
+</head>
+
+<body>
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="/" class="logo d-flex align-items-center">
+        <span class="d-none d-lg-block"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAACEUlEQVR4nO2avS8lURjGfxUKCokofJQUiz9gSWwlGou/wVYKboliEzUdhY/SVgoU/oRFJDarlRBBJ3HvboRN7kYcOfJMwuw1Ge6Z5cr7JG8yk3Pmec9zPmbOed8BQ2VgG3BAQXYM7AIbwBwwCnQDdQF9eq4ecc/J1658R+3wbdp6DqlLaTfADjANdL6g8Z16dkdcLqUFFxK3n8AIUJXAXQ18AfbL8JMarkw7BQZK8H5WWbn8qeEC2eoDztWAvKnhMnCaBecj1ALLeitUmpACsCQN9yL+h9MsOZf8Tf4dCMnHHVSqEGdCsBHBpha2RrC3lrPXL/Ydwb7s2BYF22thm0ZsG+/sPIIdrLCjLnZmx4IPWBQFi2s5C9BhkUb8NGjSVNh6w7Hf7+JrTor9TvJvprUeaATalXUdVuZ1FtgEjsoUcgscimtG3MPy1Sbf9SUyyFNJQooSE41MWjQAg0orn6YQcqK6g3r2OWiWiGKSkLhdKit0DhxoWNeBeSAH9Is4jk+q53s7gr9eA3pL1G8RV07c6/J1IN8FtSVx5EPMWz8KK+phn36O8PGJa19nCPgGnIVai/mAC9Gp9xaA1hI936qy6C+GUHYRzyGGtD/q9Qh9wHVGvhZRRnQxg5Hx9hf4CkxkJCKvtt9ndUOiA/idogG/gA+8cXTpj56nRBy/8AccXgM1wDjwQ1PqCtgDxlQWHHdBmznHE6Ij6AAAAABJRU5ErkJggg==">LMS</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-person"></i>
+            <span class="d-none d-md-block dropdown-toggle ps-2" id="username">{{username}}</span>
+          </a><!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+                <a class="dropdown-item d-flex align-items-center" href="/logout">
+                  <i style="color: darkgray;" class="bi bi-box-arrow-right"></i>
+                  <span style="color: darkgray;">Logout</span>
+                </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </header><!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar bg-dark">
+
+    <ul class="sidebar-nav " id="sidebar-nav">
+      <li class="nav-item">
+        <a class="nav-link bg-dark" href="/">
+          <i style="color: darkgray;" class="bi bi-grid"></i>
+          <span style="color: darkgray;" onmouseover="this.style.color='white'" onmouseout="this.style.color='darkgray'">Dashboard</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed bg-dark" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-book" style="color: darkgray;"></i><span style="color: darkgray;">Books</span><i class="bi bi-chevron-down ms-auto" style="color: darkgray;"></i>
+        </a>
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="/books">
+              <i class="bi bi-circle" style="color: darkgray;"></i><span style="color: darkgray;">Books list</span>
+            </a>
+          </li>
+          <li>
+            <a href="/issued">
+              <i class="bi bi-circle" style="color: darkgray;"></i><span style="color: darkgray;">Issued Books</span>
+            </a>
+          </li>
+          <li>
+            <a href="/issue_books">
+              <i class="bi bi-circle" style="color: darkgray;"></i><span style="color: darkgray;">Issue Books</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed bg-dark" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-people" style="color: darkgray;"></i><span style="color: darkgray;">Customers</span><i style="color: darkgray;" class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="/customers_list">
+              <i class="bi bi-circle" style="color: darkgray;"></i><span style="color: darkgray;">Customers list</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link bg-dark" href="/users">
+          <i style="color: darkgray;" class="bi bi-person"></i>
+          <span style="color: darkgray;" onmouseover="this.style.color='white'" onmouseout="this.style.color='darkgray'">Users</span>
+        </a>
+      </li>
+
+    </ul>
+  </aside>
+
+  {% block body %} {% endblock %}
+
+  <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy;<strong><span>LMS</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+      Designed by <span>AimanAli</span>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up"></i></a>
+  
+  <!-- Vendor JS Files -->
+  <script src="{{ url_for('static', filename='vendor/apexcharts/apexcharts.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='vendor/chart.js/chart.umd.js')}}"></script>
+  <script src="{{ url_for('static', filename='vendor/echarts/echarts.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='vendor/quill/quill.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='vendor/simple-datatables/simple-datatables.js')}}"></script>
+  <script src="{{ url_for('static', filename='vendor/tinymce/tinymce.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='vendor/php-email-form/validate.js')}}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{{ url_for('static', filename='js/main.js')}}"></script>
+  <!-- Include Bootstrap CSS (if not already included) -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Include Bootstrap JS and jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/js/bootstrap.min.js"></script>
+
+
+</body>
+
+</html>

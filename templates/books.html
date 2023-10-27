@@ -1,0 +1,211 @@
+{% extends "layout.html" %}
+{% block body %} 
+
+  <main id="main" class="main" style="min-height: 80vh;">
+
+    
+
+    <div class="pagetitle">
+      <h1>Books</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item active">Books</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Books</h5>
+              <br>
+              <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#Modal1"><i class="bi bi-plus"></i>Add Book</button>
+              
+              
+              <!-- Table with stripped rows -->
+              <table class="table datatable">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Status</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for book in books %}
+                  <tr>
+                    <td>{{book.id}}</td>
+                    <td>{{book.title}}</td>
+                    <td>{{book.writer}}</td>
+                    <td>{{book.category}}</td>
+                    <td>{{book.quantity}}</td>
+                    <td>{% if book.is_active %}Active{% else %}Inactive{% endif %}</td>
+                    <td><button class="btn" data-bs-toggle="modal" data-bs-target="#myModal{{book.id}}"><i class="bi bi-pencil"></i></button></td>
+
+                    <div class="modal fade" id="myModal{{book.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                      <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <h4 class="modal-title" id="myModalLabel">Edit Book</h4>
+                              </div>
+                              <div class="modal-body">
+                                <form  name="sentMessage" id="contactForm" action="/addbook/{{book.id}}" method="POST" novalidate enctype="multipart/form-data" class="needs-validation">
+                                    <br>
+                                    <div>
+                                        <input type="text" class="form-control py-3" name="title" id="title" placeholder="Title" required value="{{book.title}}">
+                                        <div class="invalid-feedback">Please enter a title.</div>
+                                    </div>
+                                    <br>
+                                    <div>
+                                        <input type="text" class="form-control  py-3" name="author" id="author" placeholder="Author" required value="{{book.writer}}">
+                                        <div class="invalid-feedback">Please enter a title.</div>
+                                    </div>
+                                    <br>
+                                    <div class="mb-3">
+                                        <select class="form-select py-3" aria-label="Default select example" name="category" id="Category" required>
+                                            <option value=""{% if not book.category %}selected{% endif %}>Select a Category</option>
+                                            <option value="Sci-fi"{% if book.category == 'Sci-fi' %}selected{% endif %}>Sci-fi</option>
+                                            <option value="History"{% if book.category == 'History' %}selected{% endif %}>History</option>
+                                            <option value="Business"{% if book.category == 'Business' %}selected{% endif %}>Business</option>
+                                            <option value="Mystery"{% if book.category == 'Mystery' %}selected{% endif %}>Mystery</option>
+                                            <option value="Fantasy"{% if book.category == 'Fantesy' %}selected{% endif %}>Fantasy</option>
+                                            <option value="Comics"{% if book.category == 'Comics' %}selected{% endif %}>Comics</option>
+                                            <option value="Fictional"{% if book.category == 'Fictional' %}selected{% endif %}>Fictional</option>
+                                            <option value="Science"{% if book.category == 'Science' %}selected{% endif %}>Science</option>
+                                            <option value="Astronomy"{% if book.category == 'Astronomy' %}selected{% endif %}>Astronomy</option>
+                                            <option value="Poetry"{% if book.category == 'Poetry' %}selected{% endif %}>Poetry</option>
+                                        </select>
+                                        <div class="invalid-feedback">Please select a category.</div>
+                                    </div>
+                                    <br>
+                                    <div>
+                                      <input type="number" class="form-control  py-3" name="quantity" id="quantity" placeholder="Quantity" required value="{{book.quantity}}">
+                                      <div class="invalid-feedback">Please enter a quantity.</div>
+                                    </div>
+                                    <br>
+                                    <div>
+                                      <input type="checkbox" class="py-4" name="is_active" id="active" value="1" {% if book.is_active %}checked{% endif %}>
+                                      <label for="active">Active Book</label>
+                                    </div>                                
+                                    <br>
+                                    <div id="success"></div>
+                                    <div class="form-group">
+                                      <button type="submit" class="btn btn-primary px-3 py-3 w-100" id="sendMessageButton">Submit</button>
+                                    </div>
+                                </form>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                    
+                    <div class="modal fade" id="Modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Modal Title</h4>
+                          </div>
+                          <div class="modal-body">
+                            <form  name="sentMessage" id="contactForm" action="/add_book" method="POST" novalidate enctype="multipart/form-data" class="needs-validation">
+                              <br>
+                              <div>
+                                  <input type="text" class="form-control py-3" name="title" id="title" placeholder="Title" required>
+                                  <div class="invalid-feedback">Please enter a title.</div>
+                              </div>
+                              <br>
+                              <div>
+                                  <input type="text" class="form-control  py-3" name="author" id="author" placeholder="Author" required>
+                                  <div class="invalid-feedback">Please enter a title.</div>
+                              </div>
+                              <br>
+                              <div class="mb-3">
+                                  <select class="form-select py-3" aria-label="Default select example" name="category" id="Category" required>
+                                      <option value="">Select a Category</option>
+                                      <option value="Sci-fi">Sci-fi</option>
+                                      <option value="History">History</option>
+                                      <option value="Business">Business</option>
+                                      <option value="Mystery">Mystery</option>
+                                      <option value="Fantasy">Fantasy</option>
+                                      <option value="Comics">Comics</option>
+                                      <option value="Fictional">Fictional</option>
+                                      <option value="Science">Science</option>
+                                      <option value="Astronomy">Astronomy</option>
+                                      <option value="Poetry">Poetry</option>
+                                  </select>
+                                  <div class="invalid-feedback">Please select a category.</div>
+                              </div>
+                              <br>
+                              <div>
+                                  <input type="number" class="form-control  py-3" name="quantity" id="quantity" placeholder="Quantity" required>
+                                  <div class="invalid-feedback">Please enter quantity.</div>
+                              </div>
+                              <br>
+                              <div>
+                                <input type="checkbox" class="py-4" name="is_active" id="active" value="1">
+                                <label for="active">Active Book</label>
+                              </div>                                
+                              <br>
+                              <div id="success"></div>
+                              <div class="form-group">
+                                <button type="submit" class="btn btn-primary px-3 py-3 w-100" id="sendMessageButton">Submit</button>
+                              </div>
+                          </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                              
+                    {% endfor %}
+                  </tr>
+                </tbody>
+              </table>
+              <!-- End Table with stripped rows -->
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+        
+  </main>
+  {% endblock %}
+  <!-- Loop to Generate Modals 
+<script>
+  // Sample data for the loop
+  var modalData = [
+      { title: "Modal 1", content: "Content for Modal 1" },
+      { title: "Modal 2", content: "Content for Modal 2" },
+      { title: "Modal 3", content: "Content for Modal 3" },
+  ];
+
+  // Loop through the data and create modals
+  modalData.forEach(function(item, index) {
+      // Create a unique ID for each modal
+      var modalId = "myModal" + index;
+
+      // Clone the modal template and set unique attributes
+      var modalClone = $("#myModal").clone();
+      modalClone.attr("id", modalId);
+      modalClone.find(".modal-title").text(item.title);
+      modalClone.find(".modal-body").text(item.content);
+
+      // Append the modal to the body
+      $("body").append(modalClone);
+
+      // Add a button or trigger to open the modal
+      // Example: <button class="btn btn-primary" data-toggle="modal" data-target="#myModal0">Open Modal 1</button>
+      var triggerButton = '<button class="btn btn-primary" data-toggle="modal" data-target="#' + modalId + '">Open ' + item.title + '</button>';
+      $("#modalTriggerContainer").append(triggerButton);
+  });
+</script>-->
+
+
+ 

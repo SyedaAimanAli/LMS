@@ -1,0 +1,134 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+
+<main id="main" class="main">
+  <div class="modal fade" id="Modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">Modal Title</h4>
+        </div>
+        <div class="modal-body">
+          <form  name="sentMessage" id="contactForm" action="/customer" method="POST" novalidate enctype="multipart/form-data" class="needs-validation">
+            <br>
+            <div>
+                <input type="text" class="form-control  py-3" name="fullname" id="name" placeholder="Fullname" required>
+                <div class="invalid-feedback">Please enter your name.</div>
+            </div>
+            <br>
+            <div>
+                <input type="text" class="form-control  py-3" name="contact" id="contact" placeholder="Number" required>
+                <div class="invalid-feedback">Please enter your number.</div>
+            </div>
+            <br>
+            <div>
+                <input type="text" class="form-control  py-3" name="email" id="email" placeholder="Email" required>
+                <div class="invalid-feedback">Please enter your email.</div>
+            </div>
+            <br>
+            <div id="success"></div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary px-3 py-3 w-100" id="sendMessageButton">Submit</button>
+            </div>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  
+    <div class="pagetitle">
+      <h1>Users</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item active">Customers</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Customers</h5>
+              <br>
+              <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#Modal1"><i class="bi bi-plus"></i>Add Customer</button>
+              
+              
+              <!-- Table with stripped rows -->
+              <table class="table datatable">
+                <thead>
+                  <tr>
+                    <th scope="col p-0">#</th>
+                    <th scope="col p-0">Name</th>
+                    <th scope="col p-0">Contact</th>
+                    <th scope="col p-0">Email</th>
+                    <th></th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for customer in customers %}
+                  <tr>
+                    <th scope="row">{{customer.sno}}</th>
+                    <td>{{customer.name}}</td>
+                    <td>{{customer.contact}}</td>
+                    <td>{{customer.email}}</td>
+                    <td><button class="btn" data-bs-toggle="modal" data-bs-target="#myModal{{customer.sno}}"><i class="bi bi-pencil"></i></button></td>
+
+                    <div class="modal fade" id="myModal{{customer.sno}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                      <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <h4 class="modal-title" id="myModalLabel">Edit User</h4>
+                              </div>
+                              <div class="modal-body">
+                                <form action="/rename/{{customer.sno}}" method="POST" novalidate enctype="multipart/form-data" class="needs-validation">
+                                    <br>
+                                  <div>
+                                      <input type="text" class="form-control  py-3" name="name" id="name" placeholder="Fullname" required value="{{customer.name}}">
+                                      <div class="invalid-feedback">Please enter your name.</div>
+                                  </div>
+                                  <br>
+                                  <div>
+                                      <input type="text" class="form-control  py-3" name="contact" id="contact" placeholder="Number" required value="{{customer.contact}}">
+                                      <div class="invalid-feedback">Please enter your number.</div>
+                                  </div>
+                                  <br>
+                                  <div>
+                                      <input type="text" class="form-control  py-3" name="email" id="email" placeholder="Email" required value="{{customer.email}}">
+                                      <div class="invalid-feedback">Please enter your email.</div>
+                                  </div>
+                                  <br>
+                                  <div id="success"></div>
+                                  <div class="form-group">
+                                    <button type="submit" class="btn btn-primary px-3 py-3 w-100" id="sendMessageButton">Submit</button>
+                                  </div>
+                              </form>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                    <td><a href="/trash/{{customer.sno}}"><button class="btn"><i class="bi bi-trash"></i></button></a></td>
+                    {% endfor %}
+                  </tr>
+                </tbody>
+              </table>
+              <!-- End Table with stripped rows -->
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+{% endblock %}

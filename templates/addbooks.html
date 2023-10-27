@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+{% block body %}
+<main id="main" class="main">
+<div class="container" style="min-height: 70vh;">
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <div class="mt-5 card">
+              <div class="card-body">    
+                <figure class="text-center py-3">
+                    <h1>Add a New Book</h1>
+                </figure>
+                <form  name="sentMessage" id="contactForm" action="/add_book" method="POST" novalidate enctype="multipart/form-data" class="needs-validation">
+                    <br>
+                    <div>
+                        <input type="text" class="form-control py-3" name="title" id="title" placeholder="Title" required>
+                        <label for="title" style="color: black;">Title</label>
+                        <div class="invalid-feedback">Please enter a title.</div>
+                    </div>
+                    <br>
+                    <div>
+                        <input type="text" class="form-control  py-3" name="author" id="author" placeholder="Author" required>
+                        <label for="author">Writer</label>
+                        <div class="invalid-feedback">Please enter a title.</div>
+                    </div>
+                    <br>
+                    <div class="mb-3">
+                        <select class="form-select py-3" aria-label="Default select example" name="category" id="Category" required>
+                            <option value="">Select a Category</option>
+                            <option value="Sci-fi">Sci-fi</option>
+                            <option value="History">History</option>
+                            <option value="Business">Business</option>
+                            <option value="Mystery">Mystery</option>
+                            <option value="Fantasy">Fantasy</option>
+                            <option value="Comics">Comics</option>
+                            <option value="Fictional">Fictional</option>
+                            <option value="Science">Science</option>
+                            <option value="Astronomy">Astronomy</option>
+                            <option value="Poetry">Poetry</option>
+                        </select>
+                        <label for="Category">Category</label>
+                        <div class="invalid-feedback">Please select a category.</div>
+                    </div>
+                    <br>
+                    <div>
+                        <input type="number" class="form-control  py-3" name="quantity" id="quantity" placeholder="Quantity" required>
+                        <label for="quantity">Quantity</label>
+                        <div class="invalid-feedback">Please enter quantity.</div>
+                    </div>
+                    <br>
+                    <div id="success"></div>
+                    <div class="form-group">
+                      <button type="submit" class="btn btn-primary px-3 py-3 w-100" id="sendMessageButton">Submit</button>
+                    </div>
+                </form>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+</main>
+{% endblock %}
